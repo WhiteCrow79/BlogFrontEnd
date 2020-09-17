@@ -46,6 +46,7 @@ const RegisterForm = ({ history }) => {
         dispatch(register({ username, password }));
     }
 
+    // form 초기화
     useEffect(() => {
         dispatch(initializeForm('register'));
     }, [dispatch]);
@@ -72,8 +73,11 @@ const RegisterForm = ({ history }) => {
     useEffect(() => {
         if(user) {
             history.push('/');
-            console.log('check API 성공');
-            console.log(user);
+            try {
+                localStorage.setItem('user', JSON.stringify(user));
+            } catch(e) {
+                console.log('localStorage is not working');
+            }
         }
     }, [history, user]);
 
